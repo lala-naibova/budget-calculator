@@ -49,18 +49,24 @@ function App() {
   //handle submit
   const handleSubmit= (e)=>{
       e.preventDefault();
-      if(charge && amount>0){
+      if(charge.trim() !=='' && amount>0){
         const singleExpense = {
           id: edit?id:uuid(),
           charge,
           amount: parseInt(amount)
+        }
+        if (edit) {
+          handleAlert({type:'success', text:'item edited'})
+        }
+        else{
+          handleAlert({type:'success', text:'item added'})
         }
         setExpenses([...expenses,singleExpense]);
         setCharge('');
         setAmount('');
         setEdit(false);
         setId(0);
-        handleAlert({type:'success', text:'item added'})
+        
       }
       else{
         handleAlert({type:'danger', text:'charge cannt be empty value and amount value has to be bigger than zero'}) 
@@ -85,6 +91,7 @@ setAmount(curr.amount);
 handleDelete(curr.id);
 setEdit(true);
 setId(id);
+
   }
 
   return (
